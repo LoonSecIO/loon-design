@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="123.88 180.39 512 512">
+  <!-- The favicon mark (#321): public/loon.svg's loon alone, its body, wing and red eye.
+       The hexagon frame, the back hexagons and the ripples are removed, not redrawn: at
+       16 px they made the mark too busy (2026-09-15). The 512-unit square is 32 units a
+       pixel at 16 px; it leaves about a pixel beside the tail and the beak, and puts the
+       straight line of the back on a pixel edge at 16, 32 and 48 px.
+       One file for both themes. The ink is the fill attribute, which is what a renderer
+       without CSS draws; on a dark tab strip the rule below turns it to the paper tone,
+       and the eye keeps its red. Not a second file behind a media-gated <link>: Firefox
+       ignores `media` on an icon link and takes the last SVG listed, which put a paper
+       mark on a light tab.
+       favicon.ico has no dark variant: its 16, 32 and 48 px images draw this file over the
+       body's outline filled in the paper tone and grown by 1, 1.5 and 2 px, so on a dark
+       strip the ink loon keeps a light edge and a light wing. apple-touch-icon.png is this
+       file on an opaque paper ground, in a 630-unit square that leaves 14% either side. -->
+  <style>@media (prefers-color-scheme: dark) { path { fill: #F6F2E7 } }</style>
+  <path fill="#2b373d" d="M 456.01 412.72 C 466.03 475.87 434.89 538.24 379.04 568.71 Q 342.46 588.66 300.28 586.96 Q 264.45 585.52 232.37 567.41 Q 199.13 548.66 178.59 515.60 Q 156.45 479.97 155.88 437.41 Q 155.87 436.39 156.89 436.39 L 367.96 436.39 A 2.16 2.15 -66.2 0 0 369.42 435.82 L 394.54 412.88 A 1.40 1.30 79.2 0 0 394.91 412.29 C 395.95 408.77 396.64 404.38 397.34 401.55 Q 407.66 360.12 438.08 329.58 C 455.77 311.83 478.33 304.45 502.98 311.48 C 521.06 316.64 536.48 330.56 543.80 348.27 Q 551.44 366.73 547.21 386.54 A 1.11 1.10 17.2 0 0 547.88 387.80 L 610.24 412.34 Q 610.35 412.38 610.23 412.38 L 456.44 412.20 Q 455.93 412.20 456.01 412.72 Z
+    M 265.49 559.75 Q 265.46 560.32 266.02 560.21 C 267.63 559.87 269.17 560.79 270.59 561.18 Q 307.22 571.18 341.20 561.66 Q 377.26 551.57 402.06 524.78 Q 435.13 489.06 437.08 439.34 Q 437.31 433.52 436.60 425.85 Q 436.05 419.93 435.01 412.40 A 0.62 0.62 0.0 0 0 434.43 411.87 Q 431.92 411.75 428.90 411.68 Q 427.56 411.65 426.64 412.06 Q 426.09 412.30 424.76 413.51 Q 387.87 446.95 265.93 558.70 Q 265.52 559.08 265.49 559.75 Z"/>
+  <circle fill="#c30000" cx="525.22" cy="374.58" r="5.40"/>
+</svg>

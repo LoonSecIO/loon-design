@@ -1,0 +1,10 @@
+{
+  "LoonInspect": {
+    "repository": "https://github.com/LoonSecIO/LoonInspect",
+    "commit": "45bbd772185e17fb60fcd8ae16965343e10485ad"
+  },
+  "LoonMarketing": {
+    "repository": "https://github.com/LoonSecIO/LoonMarketing",
+    "commit": "4d16f7e79a4e42104a3e76a76c931a71c8d0c59b"
+  }
+}
