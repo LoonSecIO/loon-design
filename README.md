@@ -2,12 +2,12 @@
 
 The shared brand source for LoonSec's marketing site, LoonInspect, LoonVD, and future native agent interfaces.
 
-Version **0.1.0** establishes the existing marketing identity and the selected Lakeside Console application direction. It is a foundation, not a complete component library. Product features and availability remain documented by their respective repositories.
+Version **0.1.0** established the existing marketing identity and the selected Lakeside Console application direction; **0.2.0** adds the working loon, the one sanctioned motion of the mark. It is a foundation, not a complete component library. Product features and availability remain documented by their respective repositories.
 
 - [Brand guide](guide/brand.md): identity, assets, typography, voice, integration examples.
 - [Interface patterns](guide/interfaces.md): web and native behavior, states, accessibility.
 - [Tokens](tokens/design.json): platform-neutral values; generated CSS is in `dist/` after building.
-- [Assets](assets/): existing vector mark, reverse variant, PNG, favicon, lake illustration.
+- [Assets](assets/): existing vector mark, reverse variant, PNG, favicon, lake illustration, and the working loon's motion files (`assets/motion/`).
 - [Usage terms](BRAND-USAGE.md) and [asset provenance](ASSETS.md).
 
 ## Build and validate
@@ -19,7 +19,7 @@ python3 tools/build.py
 python3 -m unittest discover -s tests -v
 ```
 
-The build produces `dist/tokens.css` and `dist/loon-design-0.1.0.zip`. JSON is the source of truth; do not edit generated CSS. Release bundles contain source guides, tokens, assets, and usage terms. Tag releases after reviewing the output.
+The build produces `dist/tokens.css` and `dist/loon-design-0.2.0.zip`. `python3 tools/motion.py` regenerates `assets/motion/` from the supplied artwork. JSON is the source of truth; do not edit generated CSS. Release bundles contain source guides, tokens, assets, and usage terms. Tag releases after reviewing the output.
 
 ## Consumers
 
