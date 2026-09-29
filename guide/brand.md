@@ -60,7 +60,7 @@ Every file except the lake has a `-reversed` twin for dark surfaces. The lake ke
 
 - **Motion means working.** Stop it when the work ends. A finished, empty, failed or stale state never shows a moving loon, and the loon never loops as decoration in a header, footer or hero.
 - **Pair it with words.** "Reading the observation ledger…" is the status. To assistive technology the loon is decoration: `alt=""` on an image, `aria-hidden="true"` inline.
-- **Let quick answers stay quiet.** Each file fades in after 300 ms, so a fast response never flashes a loon.
+- **Let quick answers stay quiet.** Show the loon only once a wait passes about 300 ms, so a fast response never flashes it. The files start at rest and fully visible, so they also work as still images.
 - **Honor reduced motion.** Every file stands still under `prefers-reduced-motion: reduce`, and the words carry the state.
 - **Keep the play to waiting.** The dive is lighthearted. It never sits beside a failure or a security finding.
 - **The mark's rules still apply.** Keep its clear space, and below 32 px use the small loon.

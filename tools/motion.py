@@ -2,7 +2,8 @@
 
 Every path is copied verbatim from assets/logos and assets/illustrations; a motion file adds
 only clip regions, CSS animation, and a rule that stands the loon still under
-prefers-reduced-motion. tests/test_motion.py regenerates the files and compares bytes.
+prefers-reduced-motion. Every file starts at rest and fully visible, so it also works as a
+still image wherever animation doesn't run; waiting before showing it is the host's job. tests/test_motion.py regenerates the files and compares bytes.
 """
 import re
 from pathlib import Path
@@ -29,7 +30,6 @@ REST = f'0,0 800,0 800,900 0,900 0,{_FLOOR:.2f} {_x_at(436.39):.2f},436.39 0,436
 SHOULDER = f'{_x_at(436.39):.2f}px 436.39px'
 
 REDUCED = '@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }'
-APPEAR = '@keyframes appear { from { opacity: 0; } to { opacity: 1; } }'
 BEAT = ('@keyframes beat { 0%, 58%, 100% { transform: rotate(0deg); } 14%, 42% { transform: rotate(32deg); } '
         '28% { transform: rotate(6deg); } }')
 RISE = ('@keyframes rise { 0%, 58%, 100% { transform: translateY(0); } 14%, 42% { transform: translateY(-10px); } '
@@ -79,10 +79,9 @@ def _bird(ink, loon, eye):
 
 
 def _beating(extra=()):
-    return ['.mark { animation: appear .2s ease-out .3s both; }',
-            '.bird { transform-box: view-box; animation: rise 1.8s ease-in-out infinite; }',
+    return ['.bird { transform-box: view-box; animation: rise 1.8s ease-in-out infinite; }',
             f'.back {{ transform-box: view-box; transform-origin: {SHOULDER}; animation: beat 1.8s ease-in-out infinite; }}',
-            *extra, APPEAR, BEAT, RISE]
+            *extra, BEAT, RISE]
 
 
 def _files():
@@ -90,11 +89,9 @@ def _files():
     drift = ['.ripple { transform-box: view-box; animation: drift 3.6s ease-in-out infinite alternate; }',
              '.ripple.second { animation-delay: -1.8s; }',
              '@keyframes drift { from { transform: translateX(-8px); } to { transform: translateX(8px); } }']
-    dive = [('.mark { animation: appear .2s ease-out .3s both; }'),
-            '.bird { transform-box: view-box; transform-origin: 390px 520px; animation: dive 5.4s ease-in-out infinite; }',
+    dive = ['.bird { transform-box: view-box; transform-origin: 390px 520px; animation: dive 5.4s ease-in-out infinite; }',
             f'.back {{ transform-box: view-box; transform-origin: {SHOULDER}; animation: shake 5.4s ease-in-out infinite; }}',
             '.ripple { transform-box: view-box; transform-origin: 385px 630px; animation: splash 5.4s ease-in-out infinite; }',
-            APPEAR,
             '@keyframes dive { ' + ' '.join(f'{k} {{ transform: translate({x}px, {y}px) rotate({a}deg); }}' for k, x, y, a in DIVE) + ' }',
             '@keyframes shake { ' + ' '.join(f'{k} {{ transform: rotate({a}deg); }}' for k, a in SHAKE) + ' }',
             '@keyframes splash { ' + ' '.join(f'{k} {{ transform: scaleX({s}); }}' for k, s in SPLASH) + ' }']
