@@ -20,7 +20,7 @@ class Foundations(unittest.TestCase):
         themes = json.loads((ROOT / 'tokens/design.json').read_text())['themes']
         self.assertEqual(themes['light'].keys(), themes['dark'].keys())
         for theme, t in themes.items():
-            pairs = [('text', 'surface'), ('text', 'surface-raised'), ('text-secondary', 'surface'), ('text-secondary', 'surface-raised'), ('navigation-text', 'navigation'), ('selected-text', 'selected'), ('action-text', 'action'), ('danger', 'danger-surface'), ('warning', 'warning-surface'), ('success', 'success-surface')]
+            pairs = [('text', 'surface'), ('text', 'surface-raised'), ('text-secondary', 'surface'), ('text-secondary', 'surface-raised'), ('navigation-text', 'navigation'), ('selected-text', 'selected'), ('action-text', 'action'), ('danger', 'danger-surface'), ('warning', 'warning-surface'), ('success', 'success-surface'), ('accent-red-text', 'surface'), ('accent-red-text', 'surface-raised'), ('accent-green-text', 'surface'), ('accent-green-text', 'surface-raised')]
             for fg, bg in pairs:
                 lo, hi = sorted([luminance(t[fg]), luminance(t[bg])])
                 self.assertGreaterEqual((hi+.05)/(lo+.05), 4.5, (theme, fg, bg))
@@ -28,6 +28,28 @@ class Foundations(unittest.TestCase):
                 for bg in ('surface', 'surface-raised'):
                     lo, hi = sorted([luminance(t[fg]), luminance(t[bg])])
                     self.assertGreaterEqual((hi+.05)/(lo+.05), 3, (theme, fg, bg))
+
+    def test_brand_hues_keep_their_roles(self):
+        data = json.loads((ROOT / 'tokens/design.json').read_text())
+        brand, themes = data['brand'], data['themes']
+        def ratio(a, b):
+            lo, hi = sorted([luminance(a), luminance(b)])
+            return (hi + .05) / (lo + .05)
+        # Sun always carries Ink, and Sun is the same in both themes.
+        self.assertGreaterEqual(ratio(brand['ink'], brand['sun']), 4.5)
+        for theme, t in themes.items():
+            self.assertEqual(t['selected'], brand['sun'], theme)
+            self.assertEqual(t['selected-text'], brand['ink'], theme)
+            # Eye is an accent: 3:1 on the page ground is enough for display
+            # headings and marks. It is 2.7:1 on the dark raised surface, so
+            # there it is decorative only; red that carries meaning uses
+            # accent-red-text. The guide says so.
+            self.assertGreaterEqual(ratio(brand['eye'], t['surface']), 3, theme)
+
+    def test_guide_states_the_readability_rules(self):
+        guide = (ROOT / 'guide/brand.md').read_text()
+        for phrase in ('WCAG 2.2 Level AA', '4.5:1', 'Sun always carries Ink', 'accent-red-text', 'never by fading'):
+            self.assertIn(phrase, guide)
 
     def test_vector_geometry_and_eye_preserved(self):
         original = ET.parse(ROOT / 'assets/logos/loon-mark.svg').getroot()
