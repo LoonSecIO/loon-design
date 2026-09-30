@@ -1,6 +1,6 @@
 # One LoonSec. Wherever it shows up.
 
-Brand foundations · v0.2.0
+Brand foundations · v0.3.0
 
 LoonSec is built in Minnesota for people who manage Apple devices and have to answer for them. The identity takes its character from the lake, the loon, and clear, practical language. Use this guide when building an integration, writing about a product, or designing a new surface.
 
@@ -23,11 +23,22 @@ Pair the mark with the exact product name in text. A combined graphic must use r
 | Lake | #173A52 | Navigation and strong dark surfaces |
 | Deep lake | #0C1E2C | Dark-theme background |
 | Pine | #1F4A3A | Actions and restrained accents |
-| Sun | #EFC15A | Selected navigation and occasional emphasis |
-| Eye | #C6342A | The loon eye and small brand accents |
+| Sun | #EFC15A | Selected navigation and occasional emphasis. Always carries Ink; never light text on Sun |
+| Eye | #C6342A | The loon eye, small accents, and display-size headings. Not a body-text color |
 | Mist | #A7C3CE | Supporting color on dark surfaces |
 
 Use semantic tokens in interfaces. A brand hue is not automatically a readable text color. Status colors always carry a label or icon; yellow navigation does not mean warning, and a decorative red accent does not mean an error. Never use a success treatment for missing data.
+
+### Readable by rule
+
+The target is WCAG 2.2 Level AA: 4.5:1 for text, 3:1 for large text (24px, or 18.66px bold), control boundaries, and focus indicators. The semantic pairs in `tokens/design.json` are the checked ones; the token tests fail below those ratios in both themes. Any other pairing is unchecked until you measure it.
+
+- **A ground that changes between themes changes its text with it.** Pine lightens in dark mode, so text tuned for Pine on paper fails on Pine in the dark. Either the ground holds still across themes or the text token moves with it. Never assume a pairing survives because the ground is "always dark" or "always yellow"; check that the ground token really is fixed.
+- **Sun always carries Ink.** Sun is the same in both themes, so what sits on it is the same in both themes. Light text on Sun is 1.4:1.
+- **Eye is an accent, not a text color.** Use it for the loon's eye, display headings on the page ground, focus on light surfaces, and marks. On dark raised surfaces it measures 2.7:1, so there it is decorative only. Body-size red text, and any red that carries meaning on a raised dark surface, uses `accent-red-text`; green uses `accent-green-text`. Both are tuned per theme.
+- **De-emphasize with size, weight, and spacing, never by fading.** `text-secondary` is the lightest text color. Nothing carries text below 4.5:1 to look quieter, and nothing inside a dimmed container inherits an opacity that drags its text below AA.
+- **Type has a floor.** Monospace labels are 12px or larger; nothing is set below 11px. Small and faded is how labels fail.
+- **Focus is the `focus` token**, Eye on light surfaces and Sun on dark ones, drawn as a 3px ring with a 3px offset. Do not restyle it per component.
 
 ## Type with a job to do
 
@@ -37,7 +48,7 @@ Self-host web fonts with their license notices. No font binaries are included in
 
 ## Four surfaces, one identity
 
-- **Marketing:** warm paper, expansive Archivo headings, lake illustrations, generous spacing.
+- **Marketing:** warm paper, expansive Archivo headings, lake illustrations, generous spacing. Publishes an accessibility statement at `/accessibility/` that says what was checked and what was not.
 - **LoonInspect:** Lakeside Console. Lake-blue navigation, yellow selection, compact tables, quiet content surfaces. No decorative illustration or brand tagline at the bottom of the sidebar.
 - **Vulnerability service:** the same foundations with clear coverage and assessment states. Distinguish “No findings”, “Outside the corpus”, and “Not assessed”.
 - **Native agent:** platform controls and behavior, shared assets and semantic colors. Support system appearance and text sizing. Do not force a web sidebar into a native settings panel.
@@ -98,6 +109,8 @@ When the work has a count, show the count. The small loon swims along a waterlin
 Use the reversed small loon on dark surfaces. When the count completes, show the finished state in its place; the loon doesn't keep beating at 100%.
 
 Regenerate the motion files with `python3 tools/motion.py` after any change to the supplied artwork. The tests hold every path in them to the originals.
+
+Brand illustrations are authored and reproducible from source: the lake scene is hand-drawn vector art, and the background tiles and social card are rendered by committed code with a fixed seed. Nothing in the kit is AI-generated. If AI imagery is ever used in a Field Note or a product screen, the caption says so.
 
 ## Sound like a useful colleague
 

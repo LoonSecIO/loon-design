@@ -13,7 +13,9 @@ These are shared rules for implementation, not a shipped component library.
 
 ## Accessibility and themes
 
-Target WCAG AA text contrast (4.5:1 normal text, 3:1 large text), visible focus, and 3:1 contrast for essential control boundaries. The token tests check the supplied foreground/background pairs; they do not certify an entire interface. Verify composed screens, keyboard flow, zoom, both themes, reduced motion, and touch targets. Aim for 44px effective touch targets without forcing desktop table rows to that height.
+Target WCAG 2.2 AA text contrast (4.5:1 normal text, 3:1 large text), visible focus, and 3:1 contrast for essential control boundaries. The token tests check the supplied foreground/background pairs; they do not certify an entire interface. Verify composed screens, keyboard flow, zoom, both themes, reduced motion, and touch targets. Aim for 44px effective touch targets without forcing desktop table rows to that height.
+
+Two failures that have already happened, so they are rules: a surface token that changes between themes must change its text tokens with it, and a container must never be dimmed with opacity, which drags every colour inside it below AA. See “Readable by rule” in the brand guide.
 
 On the web, apply generated variables with `[data-loon-theme="dark"]` for an explicit dark selection. The host controls system-preference resolution. Use `--loon-text` on `--loon-surface`, not arbitrary brand colors.
 
