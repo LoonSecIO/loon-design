@@ -1,6 +1,6 @@
 # One LoonSec. Wherever it shows up.
 
-Brand foundations · v0.1.0
+Brand foundations · v0.2.0
 
 LoonSec is built in Minnesota for people who manage Apple devices and have to answer for them. The identity takes its character from the lake, the loon, and clear, practical language. Use this guide when building an integration, writing about a product, or designing a new surface.
 
@@ -42,7 +42,62 @@ Self-host web fonts with their license notices. No font binaries are included in
 - **Vulnerability service:** the same foundations with clear coverage and assessment states. Distinguish “No findings”, “Outside the corpus”, and “Not assessed”.
 - **Native agent:** platform controls and behavior, shared assets and semantic colors. Support system appearance and text sizing. Do not force a web sidebar into a native settings panel.
 
-Illustrations belong in introductions, onboarding, and appropriate empty states. Keep them away from data rows and urgent error messages. Avoid looping decorative motion; honor reduced-motion preferences.
+Illustrations belong in introductions, onboarding, and appropriate empty states. Keep them away from data rows and urgent error messages. Avoid looping decorative motion; honor reduced-motion preferences. The working loon, below, is the one exception, and it moves only while work is in flight.
+
+## The loon at work
+
+When LoonSec is busy on someone's behalf, the loon can show it. It lifts its checkered back about the shoulder twice and settles, the way a loon shakes out on open water. The motion files in `assets/motion/` copy the supplied geometry and move whole pieces of it. Nothing is redrawn, and the eye stays red.
+
+| File | Size | Use it for |
+| --- | --- | --- |
+| `loon-working-small.svg` | 16–31 px | A busy button or control. It uses the simplified loon, like the favicon. |
+| `loon-working.svg` | 32–64 px | A panel or table waiting on its first read, beside words that say what is loading. |
+| `loon-working-page.svg` | 96–200 px | A whole page that waits, with the words below it. The ripples drift. |
+| `loon-diving.svg` | 96–200 px | Long work of unknown length, such as a first sync. The loon dives, swims out of sight, surfaces and shakes off. |
+| `lake-working.svg` | Full width | Onboarding and a first run. The lake illustration, with the loon riding the swell. |
+
+Every file except the lake has a `-reversed` twin for dark surfaces. The lake keeps its own palette.
+
+- **Motion means working.** Stop it when the work ends. A finished, empty, failed or stale state never shows a moving loon, and the loon never loops as decoration in a header, footer or hero.
+- **Pair it with words.** "Reading the observation ledger…" is the status. To assistive technology the loon is decoration: `alt=""` on an image, `aria-hidden="true"` inline.
+- **Let quick answers stay quiet.** Show the loon only once a wait passes about 300 ms, so a fast response never flashes it. The files start at rest and fully visible, so they also work as still images.
+- **Honor reduced motion.** Every file stands still under `prefers-reduced-motion: reduce`, and the words carry the state.
+- **Keep the play to waiting.** The dive is lighthearted. It never sits beside a failure or a security finding.
+- **The mark's rules still apply.** Keep its clear space, and below 32 px use the small loon.
+
+### Known progress: the swimming loon
+
+When the work has a count, show the count. The small loon swims along a waterline to the share that is done, and the numbers stay in words beside it.
+
+```html
+<div class="loon-swim" role="progressbar" aria-label="Importing Macs"
+     aria-valuemin="0" aria-valuemax="14000" aria-valuenow="5880" style="--done: 0.42">
+  <img src="loon-working-small.svg" alt="">
+</div>
+<p>5,880 of 14,000 Macs imported</p>
+```
+
+```css
+.loon-swim {
+  position: relative;
+  height: 28px;
+  background:
+    linear-gradient(var(--loon-action), var(--loon-action)) 0 100% / calc(var(--done) * 100%) 3px no-repeat,
+    linear-gradient(var(--loon-border), var(--loon-border)) 0 100% / 100% 1px no-repeat;
+}
+.loon-swim img {
+  position: absolute;
+  bottom: -4px;
+  width: 28px;
+  left: calc(var(--done) * (100% - 28px));
+  transition: left .4s ease-out;
+}
+@media (prefers-reduced-motion: reduce) { .loon-swim img { transition: none; } }
+```
+
+Use the reversed small loon on dark surfaces. When the count completes, show the finished state in its place; the loon doesn't keep beating at 100%.
+
+Regenerate the motion files with `python3 tools/motion.py` after any change to the supplied artwork. The tests hold every path in them to the originals.
 
 ## Sound like a useful colleague
 
